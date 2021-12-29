@@ -1,16 +1,145 @@
-# This is a sample Python script.
+import numpy as np
+import measures as m
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+#Initialize Arrays
+arr_length = 10
+
+S = np.arange(1, arr_length + 1)
+R1 = np.arange(1, arr_length + 1)
+R2 = np.arange(1, arr_length + 1)
+
+#measures.kendall_rank_correlation(S, R1, R2)
+#measures.spearmans_rank_correlation_coefficient(S, R1, R2)
+
+"""
+dcg = measures.dicscounted_cumulative_gain(S, R1, R2)
+ndcg = measures.normalized_dicscounted_cumulative_gain(S, R1, R2)
+
+p = measures.precision(S, R1, R2)
+pk = measures.precision_at_k(S, R1, R2, k = 3)
+r = measures.recall(S, R1, R2)
+f1 = measures.f1_score(S, R1, R2)
+"""
+
+def comparison(measure1, measure2, string1, string2):
+    i = 0
+    while True:
+        np.random.shuffle(R1)
+        np.random.shuffle(R2)
+
+        m1 = measure1(S, R1, R2)
+        m2 = measure2(S, R1, R2)
+
+        if ((m1[0] < m1[1]) and (m2[0] > m2[1]) or (m1[0] > m1[1]) and (m2[0] < m2[1])):
+            print("\n", "S:" + str(S))
+            print("R1:" + str(R1))
+            print("R2:" + str(R2), "\n")
+            print(string1)
+            print(m1[0], m1[1], "\n")
+            print(string2)
+            print(m2[0], m2[1])
+            break
+
+        #if(i==1000):
+        #    break
+
+        #print("Iteration: ", i)
+        i = i + 1
+
+#Kendall rank correlation coefficient & Spearman's rank correlation coefficient
+comparison(m.kendall_rank_correlation, m.spearmans_rank_correlation_coefficient, "Kendall rank correlation coefficient", "Spearman's rank correlation coefficient")
+
+#Kendall rank correlation coefficient & Discounted Cumulative Gain
+comparison(m.kendall_rank_correlation, m.dicscounted_cumulative_gain, "Kendall rank correlation coefficient", "Discounted Cumulative Gain")
+
+#Kendall rank correlation coefficient & Nromalized Discounted Cumulative Gain
+comparison(m.kendall_rank_correlation, m.normalized_dicscounted_cumulative_gain, "Kendall rank correlation coefficient", "Normalized Discounted Cumulative Gain")
+
+#Kendall rank correlation coefficient & Precision
+#comparison(m.kendall_rank_correlation, m.precision, "Kendall rank correlation coefficient", "Precision")
+
+#Kendall rank correlation coefficient & Precision@k
+#comparison(m.kendall_rank_correlation, m.precision_at_k, "Kendall rank correlation coefficient", "Precision", k = 3)
+
+#Kendall rank correlation coefficient & Recall
+comparison(m.kendall_rank_correlation, m.recall, "Kendall rank correlation coefficient", "Recall")
+
+#Kendall rank correlation coefficient & F1 Score
+comparison(m.kendall_rank_correlation, m.f1_score, "Kendall rank correlation coefficient", "F1 Score")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+
+#Spearman's rank correlation coefficient & Discounted Cumulative Gain
+comparison(m.spearmans_rank_correlation_coefficient, m.dicscounted_cumulative_gain, "Spearman's rank correlation coefficient", "Discounted Cumulative Gain")
+
+#Spearman's rank correlation coefficient & Normalized Discounted Cumulative Gain
+comparison(m.spearmans_rank_correlation_coefficient, m.normalized_dicscounted_cumulative_gain, "Spearman's rank correlation coefficient", "Normalized Discounted Cumulative Gain")
+
+#Spearman's rank correlation coefficient & Precision
+comparison(m.spearmans_rank_correlation_coefficient, m.precision, "Spearman's rank correlation coefficient", "Precision")
+
+#Spearman's rank correlation coefficient & Precision@k
+#comparison(m.spearmans_rank_correlation_coefficient, m.precision_at_k, "Spearman's rank correlation coefficient", "Precision@k", k = 3)
+
+#Spearman's rank correlation coefficient & Recall
+comparison(m.spearmans_rank_correlation_coefficient, m.recall, "Spearman's rank correlation coefficient", "Recall")
+
+#Spearman's rank correlation coefficient & F1 Score
+comparison(m.spearmans_rank_correlation_coefficient, m.f1_score, "Spearman's rank correlation coefficient", "F1 Score")
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+#Discounted Cumulative Gain & Normalized Discounted Cumulative Gain
+#comparison(m.dicscounted_cumulative_gain, m.normalized_dicscounted_cumulative_gain, "Discounted Cumulative Gain", "Normalized Discounted Cumulative Gain")
+
+#Discounted Cumulative Gain & Precision
+comparison(m.dicscounted_cumulative_gain, m.precision, "Discounted Cumulative Gain", "Precision")
+
+#Discounted Cumulative Gain & Precision@k
+#comparison(m.dicscounted_cumulative_gain, m.precision_at_k, "Discounted Cumulative Gain", "Precision@k", k = 3)
+
+#Discounted Cumulative Gain & Recall
+comparison(m.dicscounted_cumulative_gain, m.recall, "Discounted Cumulative Gain", "Recall")
+
+#Discounted Cumulative Gain & F1 Score
+comparison(m.dicscounted_cumulative_gain, m.f1_score, "Discounted Cumulative Gain", "F1 Score")
+
+
+
+#Normalized Discounted Cumulative Gain & Precision
+comparison(m.normalized_dicscounted_cumulative_gain, m.precision, "Normalized Discounted Cumulative Gain", "Precision")
+
+#Normalized Discounted Cumulative Gain & Precision@k
+#comparison(m.normalized_dicscounted_cumulative_gain, m.precision_at_k, "Normalized Discounted Cumulative Gain", "Precision@k", k = 3)
+
+#Normalized Discounted Cumulative Gain & Recall
+comparison(m.normalized_dicscounted_cumulative_gain, m.recall, "Normalized Discounted Cumulative Gain", "Recall")
+
+#Normalized Discounted Cumulative Gain & F1 Score
+comparison(m.normalized_dicscounted_cumulative_gain, m.f1_score, "Normalized Discounted Cumulative Gain", "F1 Score")
+
+
+
+#Precision & Precision@k
+#comparison(m.precision, m.precision_at_k, "Precision", "Precision@k", k = 3)
+
+#Precision & Recall
+comparison(m.precision, m.recall, "Precision", "Precision@k")
+
+#Precision & F1 Score
+comparison(m.precision, m.f1_score, "Precision", "F1 Score")
+
+
+
+#Precision@k & Recall
+#comparison(m.precision_at_k, m.recall, "Precision@k", "Recall", k = 3)
+
+#Precision@k & F1 Score
+#comparison(m.precision_at_k, m.f1_score, "Precision@k", "F1 Score", k = 3)
+
+
+
+#Recall & F1 Score
+comparison(m.recall, m.f1_score, "Recall", "F1 Score")
+
+

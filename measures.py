@@ -28,7 +28,7 @@ def spearmans_rank_correlation_coefficient(arr1, arr2, arr3):
     return(r1[0], r2[0])
 
 #Discounted Cumulative Gain
-def dicscounted_cumulative_gain(arr1, arr2, arr3):
+def discounted_cumulative_gain(arr1, arr2, arr3):
     dcg1 = dcg([arr1], [arr2])
     dcg2 = dcg([arr1], [arr3])
     #print("Discounted Cumulative Gain")
@@ -36,13 +36,14 @@ def dicscounted_cumulative_gain(arr1, arr2, arr3):
     return(dcg1, dcg2)
 
 #Normalized Discounted Cumulative Gain
-def normalized_dicscounted_cumulative_gain(arr1, arr2, arr3):
+def normalized_discounted_cumulative_gain(arr1, arr2, arr3):
     ndcg1 = ndcg([arr1], [arr2])
     ndcg2 = ndcg([arr1], [arr3])
     #print("Normalized Discounted Cumulative Gain")
     #print(ndcg1, ndcg2, "\n")
     return(ndcg1,ndcg2)
 
+"""
 #Precision
 def precision(arr1, arr2, arr3):
     precision1 = ps(arr1, arr2, average=None)
@@ -93,6 +94,34 @@ def f1_score(arr1, arr2, arr3):
     #print(f_one1, f_one2)
     #print(f_one_count1, f_one_count2, "\n")
     return(f_one_count1, f_one_count2)
+"""
+
+
+def precision_at_k(rank1, rank2, rank3, k):
+    precision1 = len(set(rank1[:k]) & set(rank2[:k])) / k
+    precision2 = len(set(rank1[:k]) & set(rank3[:k])) / k
+    return (precision1, precision2)
+
+def recall_at_k(rank1, rank2, rank3, j, k):
+    recall1 = len(set(rank1[:j]) & set(rank2[:k])) / len(rank1[:j])
+    recall2 = len(set(rank1[:j]) & set(rank3[:k])) / len(rank1[:j])
+    return (recall1, recall2)
+
+def f1_score_at_k(rank1, rank2, rank3, j, k):
+    try:
+        f_one1 = 2 * precision_at_k(rank1, rank2, rank3, k)[0] * recall_at_k(rank1, rank2, rank3, j, k)[0] / (precision_at_k(rank1, rank2, rank3, k)[0] * recall_at_k(rank1, rank2, rank3, j, k)[0])
+    except:
+        f_one1 = 0
+    try:
+        f_one2 = 2 * precision_at_k(rank1, rank2, rank3, k)[1] * recall_at_k(rank1, rank2, rank3, j, k)[1] / (precision_at_k(rank1, rank2, rank3, k)[1] * recall_at_k(rank1, rank2, rank3, j, k)[1])
+    except:
+        f_one2 = 0
+    return (f_one1, f_one2)
+
+def fall_out_at_k(rank1, rank2, rank3, j, k):
+    fall_out1 = len(set(rank1[j:]) & set(rank2[:k])) / len(rank1[j:])
+    fall_out2 = len(set(rank1[j:]) & set(rank3[:k])) / len(rank1[j:])
+    return (fall_out1, fall_out2)
 
 
 

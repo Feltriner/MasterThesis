@@ -11,34 +11,34 @@ from sklearn.metrics import recall_score as rs
 from sklearn.metrics import f1_score as f_one
 
 #Kendall rank correlation coefficient
-def kendall_rank_correlation(arr1, arr2, arr3):
-    tau1 = kt(arr1,arr2)
-    tau2 = kt(arr1,arr3)
+def kendall_rank_correlation(rank1, rank2, rank3):
+    tau1 = kt(rank1,rank2)
+    tau2 = kt(rank1,rank3)
     #print("Kendall rank correlation coefficient")
     #print(tau1[0], tau2[0], "\n")
     return(tau1[0], tau2[0])
 
 #Spearman's rank correlation coefficient
-def spearmans_rank_correlation_coefficient(arr1, arr2, arr3):
-    r1 = sr(arr1,arr2)
-    r2 = sr(arr1,arr3)
+def spearmans_rank_correlation_coefficient(rank1, rank2, rank3):
+    r1 = sr(rank1,rank2)
+    r2 = sr(rank1,rank3)
 
     #print("Spearman's rank correlation coefficient")
     #print(r1[0], r2[0], "\n")
     return(r1[0], r2[0])
 
 #Discounted Cumulative Gain
-def discounted_cumulative_gain(arr1, arr2, arr3):
-    dcg1 = dcg([arr1], [arr2])
-    dcg2 = dcg([arr1], [arr3])
+def discounted_cumulative_gain(rank1, rank2, rank3):
+    dcg1 = dcg([rank1], [rank2])
+    dcg2 = dcg([rank1], [rank3])
     #print("Discounted Cumulative Gain")
     #print(dcg1, dcg2, "\n")
     return(dcg1, dcg2)
 
 #Normalized Discounted Cumulative Gain
-def normalized_discounted_cumulative_gain(arr1, arr2, arr3):
-    ndcg1 = ndcg([arr1], [arr2])
-    ndcg2 = ndcg([arr1], [arr3])
+def normalized_discounted_cumulative_gain(rank1, rank2, rank3):
+    ndcg1 = ndcg([rank1], [rank2])
+    ndcg2 = ndcg([rank1], [rank3])
     #print("Normalized Discounted Cumulative Gain")
     #print(ndcg1, ndcg2, "\n")
     return(ndcg1,ndcg2)
@@ -96,17 +96,19 @@ def f1_score(arr1, arr2, arr3):
     return(f_one_count1, f_one_count2)
 """
 
-
+#Precision@k
 def precision_at_k(rank1, rank2, rank3, k):
     precision1 = len(set(rank1[:k]) & set(rank2[:k])) / k
     precision2 = len(set(rank1[:k]) & set(rank3[:k])) / k
     return (precision1, precision2)
 
+#Recall@k
 def recall_at_k(rank1, rank2, rank3, j, k):
     recall1 = len(set(rank1[:j]) & set(rank2[:k])) / len(rank1[:j])
     recall2 = len(set(rank1[:j]) & set(rank3[:k])) / len(rank1[:j])
     return (recall1, recall2)
 
+#F1-Score@k
 def f1_score_at_k(rank1, rank2, rank3, j, k):
     try:
         f_one1 = 2 * precision_at_k(rank1, rank2, rank3, k)[0] * recall_at_k(rank1, rank2, rank3, j, k)[0] / (precision_at_k(rank1, rank2, rank3, k)[0] * recall_at_k(rank1, rank2, rank3, j, k)[0])
@@ -118,10 +120,33 @@ def f1_score_at_k(rank1, rank2, rank3, j, k):
         f_one2 = 0
     return (f_one1, f_one2)
 
+#Fall-Out@k
 def fall_out_at_k(rank1, rank2, rank3, j, k):
     fall_out1 = len(set(rank1[j:]) & set(rank2[:k])) / len(rank1[j:])
     fall_out2 = len(set(rank1[j:]) & set(rank3[:k])) / len(rank1[j:])
     return (fall_out1, fall_out2)
+
+
+
+#Mean Reciprocal Rank (MMR)
+def mean_reciprocal_rank(rank1, rank2, rank3):
+    pass
+
+#Hit-Rate@k
+def hit_rate_at_k(rank1, rank2, rank3, k):
+    pass
+
+#mean Average Precision@k (mAP)
+def mean_average_precision_at_k(rank1, rank2, rank3, k):
+    pass
+
+#Area Under The Curve - ROC curve @k (AUC-ROC)
+def area_under_the_curve_receiver_operator_characteristic(rank1, rank2, rank3, k):
+    pass
+
+#Area Under the Precision-Recall Curve@k (PRAUC)
+def area_under_the_precision_recall_curve(rank1, rank2, rank3, k):
+    pass
 
 
 

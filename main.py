@@ -6,7 +6,7 @@ import measures as m
 from inspect import signature
 
 #Initialize Arrays
-arr_length = 100
+arr_length = 20
 k = int(arr_length/3)
 j = int(2*(arr_length/3))
 

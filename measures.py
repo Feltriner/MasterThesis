@@ -10,6 +10,9 @@ from sklearn.metrics import precision_score as ps
 from sklearn.metrics import recall_score as rs
 from sklearn.metrics import f1_score as f_one
 
+from sklearn.metrics import average_precision_score as aps
+
+
 #Kendall rank correlation coefficient
 def kendall_rank_correlation(rank1, rank2, rank3):
     tau1 = kt(rank1,rank2)
@@ -127,18 +130,44 @@ def fall_out_at_k(rank1, rank2, rank3, j, k):
     return (fall_out1, fall_out2)
 
 
+arr1 = [1,2,3,4,5]
+arr2 = [3,1,5,2,4]
+arr3 = [5,3,4,1,2]
+#arr3 = [1,2,3,4,5]
 
 #Mean Reciprocal Rank (MMR)
 def mean_reciprocal_rank(rank1, rank2, rank3):
-    pass
+    sum1 = 0
+    sum2 = 0
+
+    for rank in rank1:
+        reciprocal_rank1 = 1 / (rank2.index(rank) + 1)
+        reciprocal_rank2 = 1 / (rank3.index(rank) + 1)
+        sum1 += reciprocal_rank1
+        sum2 += reciprocal_rank2
+        print(sum1,sum2)
+    result1 = sum1 / len(rank1)
+    result2 = sum1 / len(rank1)
+    return result1, result2
+
+
+print(mean_reciprocal_rank(arr1,arr2,arr3))
+
 
 #Hit-Rate@k
 def hit_rate_at_k(rank1, rank2, rank3, k):
-    pass
+    hit_rate1 = len(set(rank1[:k]) & set(rank2[:k])) / min(len(set(rank1[:k])),k)
+    hit_rate2 = len(set(rank1[:k]) & set(rank3[:k])) / min(len(set(rank1[:k])),k)
+    return (hit_rate1, hit_rate2)
 
 #mean Average Precision@k (mAP)
-def mean_average_precision_at_k(rank1, rank2, rank3, k):
+def mean_average_precision_at_k(rank1, rank2, rank3):
+    #map1 = aps(rank1, rank2)
+    #map2 = aps(rank1, rank3)
+    #return (map1, map2)
     pass
+
+print(mean_average_precision_at_k(arr1,arr2,arr3))
 
 #Area Under The Curve - ROC curve @k (AUC-ROC)
 def area_under_the_curve_receiver_operator_characteristic(rank1, rank2, rank3, k):
@@ -147,7 +176,5 @@ def area_under_the_curve_receiver_operator_characteristic(rank1, rank2, rank3, k
 #Area Under the Precision-Recall Curve@k (PRAUC)
 def area_under_the_precision_recall_curve(rank1, rank2, rank3, k):
     pass
-
-
 
 

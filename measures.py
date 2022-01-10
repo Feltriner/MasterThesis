@@ -10,7 +10,15 @@ from sklearn.metrics import precision_score as ps
 from sklearn.metrics import recall_score as rs
 from sklearn.metrics import f1_score as f_one
 
-from sklearn.metrics import average_precision_score as aps
+from rexmex import ranking as r, classification as c
+
+
+
+
+arr1 = [1,2,3,4,5]
+arr2 = [3,1,5,2,4]
+arr3 = [5,3,4,2,1]
+
 
 
 #Kendall rank correlation coefficient
@@ -130,11 +138,6 @@ def fall_out_at_k(rank1, rank2, rank3, j, k):
     return (fall_out1, fall_out2)
 
 
-arr1 = [1,2,3,4,5]
-arr2 = [3,1,5,2,4]
-arr3 = [5,3,4,1,2]
-#arr3 = [1,2,3,4,5]
-
 #Mean Reciprocal Rank (MMR)
 def mean_reciprocal_rank(rank1, rank2, rank3):
     sum1 = 0
@@ -151,7 +154,7 @@ def mean_reciprocal_rank(rank1, rank2, rank3):
     return result1, result2
 
 
-print(mean_reciprocal_rank(arr1,arr2,arr3))
+#print(mean_reciprocal_rank(arr1,arr2,arr3))
 
 
 #Hit-Rate@k
@@ -160,21 +163,36 @@ def hit_rate_at_k(rank1, rank2, rank3, k):
     hit_rate2 = len(set(rank1[:k]) & set(rank3[:k])) / min(len(set(rank1[:k])),k)
     return (hit_rate1, hit_rate2)
 
-#mean Average Precision@k (mAP)
-def mean_average_precision_at_k(rank1, rank2, rank3):
-    #map1 = aps(rank1, rank2)
-    #map2 = aps(rank1, rank3)
-    #return (map1, map2)
-    pass
 
-print(mean_average_precision_at_k(arr1,arr2,arr3))
+#mean Average Precision@k (mAP)
+def mean_average_precision_at_k(rank1, rank2, rank3,k):
+    arr1 = [rank1[:k]]
+    arr2 = [rank2[:k]]
+    arr3 = [rank3[:k]]
+
+    map1 = r.mean_average_precision_at_k(arr1, arr2, k)
+    map2 = r.mean_average_precision_at_k(arr1, arr3, k)
+
+    return (map1, map2)
+#print(mean_average_precision_at_k(arr1,arr2,arr3,3))
 
 #Area Under The Curve - ROC curve @k (AUC-ROC)
 def area_under_the_curve_receiver_operator_characteristic(rank1, rank2, rank3, k):
-    pass
+        arr1 = rank1[:k]
+        arr2 = rank2[:k]
+        arr3 = rank3[:k]
+
+        comparisons = [int(a == b) for (a, b) in zip(arr1, arr2)]
+
+        #print(c.roc_auc_score(comparisons,arr1))
+
+#print(area_under_the_curve_receiver_operator_characteristic(arr1, arr2, arr3, 3))
+
 
 #Area Under the Precision-Recall Curve@k (PRAUC)
 def area_under_the_precision_recall_curve(rank1, rank2, rank3, k):
     pass
+
+#print(c.pr_auc_score(arr1,arr2))
 
 

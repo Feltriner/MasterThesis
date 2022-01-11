@@ -6,16 +6,16 @@ import measures as m
 from inspect import signature
 
 #Initialize Arrays
-arr_length = 20
+arr_length = 10
 k = int(arr_length/3)
 j = int(2*(arr_length/3))
 
 factorial = math.factorial(arr_length)
 print("Factorial: " + str(factorial))
 
-S = np.arange(1, arr_length + 1)
-R1 = np.arange(1, arr_length + 1)
-R2 = np.arange(1, arr_length + 1)
+S = np.arange(1, arr_length + 1).tolist()
+R1 = np.arange(1, arr_length + 1).tolist()
+R2 = np.arange(1, arr_length + 1).tolist()
 
 #Loop with different measures
 def comparison(measure1, measure2, string1, string2, j=None, k=None):
@@ -120,6 +120,15 @@ comparison(m.kendall_rank_correlation, m.f1_score_at_k, "Kendall rank correlatio
 #Kendall rank correlation coefficient & Fall-out@k
 comparison(m.kendall_rank_correlation, m.fall_out_at_k, "Kendall rank correlation coefficient", "Fall-out@k", j, k=k)
 
+#Kendall rank correlation coefficient & Mean Reciprocal Rank (MMR)
+comparison(m.kendall_rank_correlation, m.mean_reciprocal_rank, "Kendall rank correlation coefficient", "Mean Reciprocal Rank (MMR)", k=k)
+
+#Kendall rank correlation coefficient & Hit-Rate@k
+comparison(m.kendall_rank_correlation, m.hit_rate_at_k, "Kendall rank correlation coefficient", "Hit-Rate@k", k=k)
+
+#Kendall rank correlation coefficient & mean Average Precision@k (mAP)
+comparison(m.kendall_rank_correlation, m.mean_average_precision_at_k, "Kendall rank correlation coefficient", "mean Average Precision@k (mAP)", k=k)
+
 
 
 #Spearman's rank correlation coefficient & Discounted Cumulative Gain
@@ -140,6 +149,15 @@ comparison(m.spearmans_rank_correlation_coefficient, m.f1_score_at_k, "Spearman'
 #Spearman's rank correlation coefficient & Fall-out@k
 comparison(m.spearmans_rank_correlation_coefficient, m.fall_out_at_k, "Spearman's rank correlation coefficient", "Fall-out@k", j, k=k)
 
+#Spearman's rank correlation coefficient & Mean Reciprocal Rank (MMR)
+comparison(m.spearmans_rank_correlation_coefficient, m.mean_reciprocal_rank, "Spearman's rank correlation coefficient", "Mean Reciprocal Rank (MMR)", k=k)
+
+#Spearman's rank correlation coefficient & Hit-Rate@k
+comparison(m.spearmans_rank_correlation_coefficient, m.hit_rate_at_k, "Spearman's rank correlation coefficient", "Hit-Rate@k", k=k)
+
+#Spearman's rank correlation coefficient & mean Average Precision@k (mAP)
+comparison(m.spearmans_rank_correlation_coefficient, m.mean_average_precision_at_k, "Spearman's rank correlation coefficient", "mean Average Precision@k (mAP)", k=k)
+
 
 
 #Discounted Cumulative Gain & Normalized Discounted Cumulative Gain
@@ -157,6 +175,15 @@ comparison(m.discounted_cumulative_gain, m.f1_score_at_k, "Discounted Cumulative
 #Discounted Cumulative Gain & Fall-out@k
 comparison(m.discounted_cumulative_gain, m.fall_out_at_k, "Discounted Cumulative Gain", "Fall-out@k", j, k=k)
 
+#Discounted Cumulative Gain & Mean Reciprocal Rank (MMR)
+comparison(m.discounted_cumulative_gain, m.mean_reciprocal_rank, "Discounted Cumulative Gain", "Mean Reciprocal Rank (MMR)", k=k)
+
+#Discounted Cumulative Gain & Hit-Rate@k
+comparison(m.discounted_cumulative_gain, m.hit_rate_at_k, "Discounted Cumulative Gain", "Hit-Rate@k", k=k)
+
+#Discounted Cumulative Gain & mean Average Precision@k (mAP)
+comparison(m.discounted_cumulative_gain, m.mean_average_precision_at_k, "Discounted Cumulative Gain", "mean Average Precision@k (mAP)", k=k)
+
 
 
 #Normalized Discounted Cumulative Gain & Precision@k
@@ -171,6 +198,15 @@ comparison(m.normalized_discounted_cumulative_gain, m.f1_score_at_k, "Normalized
 #Normalized Discounted Cumulative Gain & Fall-out@k
 comparison(m.normalized_discounted_cumulative_gain, m.fall_out_at_k, "Normalized Discounted Cumulative Gain", "Fall-out@k", j, k=k)
 
+#Normalized Discounted Cumulative Gain & Mean Reciprocal Rank (MMR)
+comparison(m.normalized_discounted_cumulative_gain, m.mean_reciprocal_rank, "Normalized Discounted Cumulative Gain", "Mean Reciprocal Rank (MMR)", k=k)
+
+#Normalized Discounted Cumulative Gain & Hit-Rate@k
+comparison(m.normalized_discounted_cumulative_gain, m.hit_rate_at_k, "Normalized Discounted Cumulative Gain", "Hit-Rate@k", k=k)
+
+#Normalized Discounted Cumulative Gain & mean Average Precision@k (mAP)
+comparison(m.normalized_discounted_cumulative_gain, m.mean_average_precision_at_k, "Normalized Discounted Cumulative Gain", "mean Average Precision@k (mAP)", k=k)
+
 
 
 #Precision@k & Recall@k
@@ -182,6 +218,15 @@ comparison(m.precision_at_k, m.recall_at_k, "Precision@k", "Recall@k", j, k=k)
 #Precision@k & Fall-out@k
 comparison(m.precision_at_k, m.fall_out_at_k, "Precision@k", "Fall-out@k", j, k=k)
 
+#Precision@k & Mean Reciprocal Rank (MMR)
+comparison(m.precision_at_k, m.mean_reciprocal_rank, "Precision@k", "Mean Reciprocal Rank (MMR)", k=k)
+
+#Precision@k & Hit-Rate@k
+#comparison(m.precision_at_k, m.hit_rate_at_k, "Precision@k", "Hit-Rate@k", k=k)
+
+#Precision@k & mean Average Precision@k (mAP)
+#comparison(m.precision_at_k, m.mean_average_precision_at_k, "Precision@k", "mean Average Precision@k (mAP)", k=k)
+
 
 
 #Recall@k & F1 Score@k
@@ -190,8 +235,38 @@ comparison(m.recall_at_k, m.f1_score_at_k, "Recall@k", "F1 Score@k", j, k=k)
 #Recall@k & Fall-out@k
 comparison(m.recall_at_k, m.fall_out_at_k, "Recall@k", "Fall-out@k", j, k=k)
 
+#Recall@k & Mean Reciprocal Rank (MMR)
+#comparison(m.recall_at_k, m.mean_reciprocal_rank, "Recall@k", "Mean Reciprocal Rank (MMR)", k=k)
+
+#Recall@k & Hit-Rate@k
+#comparison(m.recall_at_k, m.hit_rate_at_k, "Recall@k", "Hit-Rate@k", k=k)
+
+#Recall@k & mean Average Precision@k (mAP)
+#comparison(m.recall_at_k, m.mean_average_precision_at_k, "Recall@k", "mean Average Precision@k (mAP)", k=k)
+
 
 
 #F1 Score@k & Fall-out@k
 comparison(m.f1_score_at_k, m.fall_out_at_k, "F1 Score@k", "Fall-out@k", j, k=k)
 
+#F1 Score@k & Mean Reciprocal Rank (MMR)
+comparison(m.f1_score_at_k, m.mean_reciprocal_rank, "F1 Score@k", "Mean Reciprocal Rank (MMR)", k=k)
+
+#F1 Score@k & Hit-Rate@k
+#comparison(m.f1_score_at_k, m.hit_rate_at_k, "F1 Score@k", "Hit-Rate@k", k=k)
+
+#F1 Score@k & mean Average Precision@k (mAP)
+#comparison(m.f1_score_at_k, m.mean_average_precision_at_k, "F1 Score@k", "mean Average Precision@k (mAP)", k=k)
+
+
+
+#Mean Reciprocal Rank (MMR) & Hit-Rate@k
+comparison(m.mean_reciprocal_rank, m.hit_rate_at_k, "Mean Reciprocal Rank (MMR)", "Hit-Rate@k", k=k)
+
+#Mean Reciprocal Rank (MMR) & mean Average Precision@k (mAP)
+comparison(m.mean_reciprocal_rank, m.mean_average_precision_at_k, "Mean Reciprocal Rank (MMR)", "mean Average Precision@k (mAP)", k=k)
+
+
+
+#Hit-Rate@k & mean Average Precision@k (mAP)
+#comparison(m.hit_rate_at_k, m.mean_average_precision_at_k, "Hit-Rate@k", "mean Average Precision@k (mAP)", k=k)

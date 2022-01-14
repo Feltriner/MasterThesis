@@ -181,24 +181,80 @@ def mean_average_precision_at_k(rank1, rank2, rank3,k):
     return map1, map2
 #print(mean_average_precision_at_k(arr1,arr2,arr3,3))
 
-#Area Under The Curve - ROC curve (AUC-ROC)
-def area_under_the_curve_receiver_operator_characteristic(rank1, rank2, rank3):
-    y_true = np.argmax(rank1, axis=0)
-    y_class = np.argmax(rank2, axis=1)
-    rocauc1 = ras(y_true, y_class, multi_class = 'ovr')
-    rocauc2 = ras(rank1, rank3)
+#arr1 = [1,1,1,0]
+#arr2 = [1,1,0,1]
+#arr3 = [0,0,0,0]
+
+#Area Under The Curve - ROC curve@k (AUC-ROC)
+def area_under_the_curve_receiver_operator_characteristic_at_k(rank1, rank2, rank3, k):
+    arr1 = rank1[:k]
+    arr2 = rank2
+    arr3 = rank3
+
+    arr1_transformed = []
+    arr2_transformed = []
+    arr3_transformed = []
+
+    for item in range(k):
+            arr1_transformed.append(1)
+    for item in range(len(rank1)-k):
+            arr1_transformed.append(0)
+
+    for item in arr2:
+        if item in arr1:
+            arr2_transformed.append(1)
+        else:
+            arr2_transformed.append(0)
+
+    for item in arr3:
+        if item in arr1:
+            arr3_transformed.append(1)
+        else:
+            arr3_transformed.append(0)
+
+    #print(arr1_transformed,arr2_transformed,arr3_transformed)
+
+    rocauc1 = ras(arr1_transformed, arr2_transformed)
+    rocauc2 = ras(arr1_transformed, arr3_transformed)
     return rocauc1, rocauc2
 
 
-#print(area_under_the_curve_receiver_operator_characteristic(arr1, arr2, arr3))
+#print(area_under_the_curve_receiver_operator_characteristic(arr1, arr2, arr3, 3))
 
 
-#Area Under the Precision-Recall Curve (PRAUC)
-def area_under_the_precision_recall_curve(rank1, rank2, rank3):
-    prauc1 = aps(rank1, rank2, multi_class = 'ovr')
-    prauc2 = aps(rank1, rank3)
+#Area Under the Precision-Recall Curve@k (PRAUC)
+def area_under_the_precision_recall_curve_at_k(rank1, rank2, rank3, k):
+    arr1 = rank1[:k]
+    arr2 = rank2
+    arr3 = rank3
+
+    arr1_transformed = []
+    arr2_transformed = []
+    arr3_transformed = []
+
+    for item in range(k):
+        arr1_transformed.append(1)
+    for item in range(len(rank1) - k):
+        arr1_transformed.append(0)
+
+    for item in arr2:
+        if item in arr1:
+            arr2_transformed.append(1)
+        else:
+            arr2_transformed.append(0)
+
+    for item in arr3:
+        if item in arr1:
+            arr3_transformed.append(1)
+        else:
+            arr3_transformed.append(0)
+
+    # print(arr1_transformed,arr2_transformed,arr3_transformed)
+
+    prauc1 = aps(arr1_transformed, arr2_transformed)
+    prauc2 = aps(arr1_transformed, arr3_transformed)
     return prauc1, prauc2
 
-#print(area_under_the_precision_recall_curve(arr1,arr2,arr3))
+#print(area_under_the_precision_recall_curve(arr1,arr2,arr3, 3))
 
 

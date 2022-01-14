@@ -27,7 +27,9 @@ def comparison(measure1, measure2, string1, string2, j=None, k=None):
     sig2 = signature(measure2)
     params2 = sig2.parameters
 
+
     while i < factorial:
+        print(i, factorial)
         random.Random(seed1).shuffle(R1)
         random.Random(seed2).shuffle(R2)
         #np.random.shuffle(R1)
@@ -95,6 +97,7 @@ def comparison(measure1, measure2, string1, string2, j=None, k=None):
         seed2 = seed2 - 1
 
     if i >= factorial:
+        print(i, i >= factorial)
         print("\n")
         print("NOT FOUND!!!" + " - " + string1 + " & " + string2)
 
@@ -129,6 +132,12 @@ comparison(m.kendall_rank_correlation, m.hit_rate_at_k, "Kendall rank correlatio
 #Kendall rank correlation coefficient & mean Average Precision@k (mAP)
 comparison(m.kendall_rank_correlation, m.mean_average_precision_at_k, "Kendall rank correlation coefficient", "mean Average Precision@k (mAP)", k=k)
 
+#Kendall rank correlation coefficient & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.kendall_rank_correlation, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Kendall rank correlation coefficient", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
+
+#Kendall rank correlation coefficient & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.kendall_rank_correlation, m.area_under_the_precision_recall_curve_at_k, "Kendall rank correlation coefficient", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
 
 
 #Spearman's rank correlation coefficient & Discounted Cumulative Gain
@@ -158,6 +167,12 @@ comparison(m.spearmans_rank_correlation_coefficient, m.hit_rate_at_k, "Spearman'
 #Spearman's rank correlation coefficient & mean Average Precision@k (mAP)
 comparison(m.spearmans_rank_correlation_coefficient, m.mean_average_precision_at_k, "Spearman's rank correlation coefficient", "mean Average Precision@k (mAP)", k=k)
 
+#Spearman's rank correlation coefficient & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.spearmans_rank_correlation_coefficient, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Spearman's rank correlation coefficient", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
+
+#Spearman's rank correlation coefficient & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.spearmans_rank_correlation_coefficient, m.area_under_the_precision_recall_curve_at_k, "Spearman's rank correlation coefficient", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
 
 
 #Discounted Cumulative Gain & Normalized Discounted Cumulative Gain
@@ -184,6 +199,12 @@ comparison(m.discounted_cumulative_gain, m.hit_rate_at_k, "Discounted Cumulative
 #Discounted Cumulative Gain & mean Average Precision@k (mAP)
 comparison(m.discounted_cumulative_gain, m.mean_average_precision_at_k, "Discounted Cumulative Gain", "mean Average Precision@k (mAP)", k=k)
 
+#Discounted Cumulative Gain & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.discounted_cumulative_gain, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Discounted Cumulative Gain", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
+
+#Discounted Cumulative Gain & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.discounted_cumulative_gain, m.area_under_the_precision_recall_curve_at_k, "Discounted Cumulative Gain", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
 
 
 #Normalized Discounted Cumulative Gain & Precision@k
@@ -207,6 +228,12 @@ comparison(m.normalized_discounted_cumulative_gain, m.hit_rate_at_k, "Normalized
 #Normalized Discounted Cumulative Gain & mean Average Precision@k (mAP)
 comparison(m.normalized_discounted_cumulative_gain, m.mean_average_precision_at_k, "Normalized Discounted Cumulative Gain", "mean Average Precision@k (mAP)", k=k)
 
+#Normalized Discounted Cumulative Gain & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.normalized_discounted_cumulative_gain, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Normalized Discounted Cumulative Gain", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
+
+#Normalized Discounted Cumulative Gain & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.normalized_discounted_cumulative_gain, m.area_under_the_precision_recall_curve_at_k, "Normalized Discounted Cumulative Gain", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
 
 
 #Precision@k & Recall@k
@@ -227,6 +254,12 @@ comparison(m.precision_at_k, m.mean_reciprocal_rank, "Precision@k", "Mean Recipr
 #Precision@k & mean Average Precision@k (mAP)
 #comparison(m.precision_at_k, m.mean_average_precision_at_k, "Precision@k", "mean Average Precision@k (mAP)", k=k)
 
+#Precision@k & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.precision_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Precision@k", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
+
+#Precision@k & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.precision_at_k, m.area_under_the_precision_recall_curve_at_k, "Precision@k", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
 
 
 #Recall@k & F1 Score@k
@@ -244,6 +277,12 @@ comparison(m.recall_at_k, m.fall_out_at_k, "Recall@k", "Fall-out@k", j, k=k)
 #Recall@k & mean Average Precision@k (mAP)
 #comparison(m.recall_at_k, m.mean_average_precision_at_k, "Recall@k", "mean Average Precision@k (mAP)", k=k)
 
+#Recall@k & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.recall_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Recall@k", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
+
+#Recall@k & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.recall_at_k, m.area_under_the_precision_recall_curve_at_k, "Recall@k", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
 
 
 #F1 Score@k & Fall-out@k
@@ -258,6 +297,12 @@ comparison(m.f1_score_at_k, m.mean_reciprocal_rank, "F1 Score@k", "Mean Reciproc
 #F1 Score@k & mean Average Precision@k (mAP)
 #comparison(m.f1_score_at_k, m.mean_average_precision_at_k, "F1 Score@k", "mean Average Precision@k (mAP)", k=k)
 
+#F1 Score@k & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.f1_score_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "F1 Score@k", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
+
+#F1 Score@k & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.f1_score_at_k, m.area_under_the_precision_recall_curve_at_k, "F1 Score@k", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
 
 
 #Mean Reciprocal Rank (MMR) & Hit-Rate@k
@@ -266,7 +311,24 @@ comparison(m.mean_reciprocal_rank, m.hit_rate_at_k, "Mean Reciprocal Rank (MMR)"
 #Mean Reciprocal Rank (MMR) & mean Average Precision@k (mAP)
 comparison(m.mean_reciprocal_rank, m.mean_average_precision_at_k, "Mean Reciprocal Rank (MMR)", "mean Average Precision@k (mAP)", k=k)
 
+#Mean Reciprocal Rank (MMR) & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.mean_reciprocal_rank, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Mean Reciprocal Rank (MMR)", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
+
+#Mean Reciprocal Rank (MMR) & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.mean_reciprocal_rank, m.area_under_the_precision_recall_curve_at_k, "Mean Reciprocal Rank (MMR)", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
 
 
 #Hit-Rate@k & mean Average Precision@k (mAP)
 #comparison(m.hit_rate_at_k, m.mean_average_precision_at_k, "Hit-Rate@k", "mean Average Precision@k (mAP)", k=k)
+
+#Hit-Rate@k & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.hit_rate_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Hit-Rate@k", "mean Average Precision@k (mAP)", k=k)
+
+#Hit-Rate@k & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.hit_rate_at_k, m.area_under_the_precision_recall_curve_at_k, "Hit-Rate@k", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
+
+
+#Area Under The Curve - ROC curve@k (AUC-ROC) & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.area_under_the_curve_receiver_operator_characteristic_at_k, m.area_under_the_precision_recall_curve_at_k, "Area Under The Curve - ROC curve@k (AUC-ROC)", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)

@@ -6,12 +6,16 @@ import measures as m
 from inspect import signature
 
 #Initialize Arrays
-arr_length = 10
-k = int(arr_length/3)
-j = int(2*(arr_length/3))
+arr_length = 9
+#k = int(arr_length/3)
+#j = int(2*(arr_length/3))
+k = 7
+j = 4
 
 factorial = math.factorial(arr_length)
+iterations = int(factorial/2)
 print("Factorial: " + str(factorial))
+print("Iterations: " + str(iterations))
 
 S = np.arange(1, arr_length + 1).tolist()
 R1 = np.arange(1, arr_length + 1).tolist()
@@ -28,8 +32,7 @@ def comparison(measure1, measure2, string1, string2, j=None, k=None):
     params2 = sig2.parameters
 
 
-    while i < factorial:
-        print(i, factorial)
+    while i < iterations:
         random.Random(seed1).shuffle(R1)
         random.Random(seed2).shuffle(R2)
         #np.random.shuffle(R1)
@@ -88,8 +91,10 @@ def comparison(measure1, measure2, string1, string2, j=None, k=None):
             print(m2[0], m2[1])
             break
 
-        #if(i==1000):
-        #    break
+        if(i==iterations-1):
+            print("\n")
+            print("NOT FOUND!!!" + " - " + string1 + " & " + string2)
+            break
 
         #print("Iteration: ", i)
         i = i + 1
@@ -97,7 +102,6 @@ def comparison(measure1, measure2, string1, string2, j=None, k=None):
         seed2 = seed2 - 1
 
     if i >= factorial:
-        print(i, i >= factorial)
         print("\n")
         print("NOT FOUND!!!" + " - " + string1 + " & " + string2)
 
@@ -240,7 +244,7 @@ comparison(m.normalized_discounted_cumulative_gain, m.area_under_the_precision_r
 comparison(m.precision_at_k, m.recall_at_k, "Precision@k", "Recall@k", j, k=k)
 
 #Precision@k & F1 Score@k
-#comparison(m.precision_at_k, m.f1_score_at_k, "Precision@k", "F1 Score@k", j, k=k)
+comparison(m.precision_at_k, m.f1_score_at_k, "Precision@k", "F1 Score@k", j, k=k)
 
 #Precision@k & Fall-out@k
 comparison(m.precision_at_k, m.fall_out_at_k, "Precision@k", "Fall-out@k", j, k=k)
@@ -249,10 +253,10 @@ comparison(m.precision_at_k, m.fall_out_at_k, "Precision@k", "Fall-out@k", j, k=
 comparison(m.precision_at_k, m.mean_reciprocal_rank, "Precision@k", "Mean Reciprocal Rank (MMR)", k=k)
 
 #Precision@k & Hit-Rate@k
-#comparison(m.precision_at_k, m.hit_rate_at_k, "Precision@k", "Hit-Rate@k", k=k)
+comparison(m.precision_at_k, m.hit_rate_at_k, "Precision@k", "Hit-Rate@k", k=k)
 
 #Precision@k & mean Average Precision@k (mAP)
-#comparison(m.precision_at_k, m.mean_average_precision_at_k, "Precision@k", "mean Average Precision@k (mAP)", k=k)
+comparison(m.precision_at_k, m.mean_average_precision_at_k, "Precision@k", "mean Average Precision@k (mAP)", k=k)
 
 #Precision@k & Area Under The Curve - ROC curve@k (AUC-ROC)
 comparison(m.precision_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Precision@k", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
@@ -269,13 +273,13 @@ comparison(m.recall_at_k, m.f1_score_at_k, "Recall@k", "F1 Score@k", j, k=k)
 comparison(m.recall_at_k, m.fall_out_at_k, "Recall@k", "Fall-out@k", j, k=k)
 
 #Recall@k & Mean Reciprocal Rank (MMR)
-#comparison(m.recall_at_k, m.mean_reciprocal_rank, "Recall@k", "Mean Reciprocal Rank (MMR)", k=k)
+comparison(m.recall_at_k, m.mean_reciprocal_rank, "Recall@k", "Mean Reciprocal Rank (MMR)", k=k)
 
 #Recall@k & Hit-Rate@k
-#comparison(m.recall_at_k, m.hit_rate_at_k, "Recall@k", "Hit-Rate@k", k=k)
+comparison(m.recall_at_k, m.hit_rate_at_k, "Recall@k", "Hit-Rate@k", k=k)
 
 #Recall@k & mean Average Precision@k (mAP)
-#comparison(m.recall_at_k, m.mean_average_precision_at_k, "Recall@k", "mean Average Precision@k (mAP)", k=k)
+comparison(m.recall_at_k, m.mean_average_precision_at_k, "Recall@k", "mean Average Precision@k (mAP)", k=k)
 
 #Recall@k & Area Under The Curve - ROC curve@k (AUC-ROC)
 comparison(m.recall_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Recall@k", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
@@ -292,16 +296,33 @@ comparison(m.f1_score_at_k, m.fall_out_at_k, "F1 Score@k", "Fall-out@k", j, k=k)
 comparison(m.f1_score_at_k, m.mean_reciprocal_rank, "F1 Score@k", "Mean Reciprocal Rank (MMR)", k=k)
 
 #F1 Score@k & Hit-Rate@k
-#comparison(m.f1_score_at_k, m.hit_rate_at_k, "F1 Score@k", "Hit-Rate@k", k=k)
+comparison(m.f1_score_at_k, m.hit_rate_at_k, "F1 Score@k", "Hit-Rate@k", k=k)
 
 #F1 Score@k & mean Average Precision@k (mAP)
-#comparison(m.f1_score_at_k, m.mean_average_precision_at_k, "F1 Score@k", "mean Average Precision@k (mAP)", k=k)
+comparison(m.f1_score_at_k, m.mean_average_precision_at_k, "F1 Score@k", "mean Average Precision@k (mAP)", k=k)
 
 #F1 Score@k & Area Under The Curve - ROC curve@k (AUC-ROC)
 comparison(m.f1_score_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "F1 Score@k", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
 
 #F1 Score@k & Area Under the Precision-Recall Curve@k (PRAUC)
 comparison(m.f1_score_at_k, m.area_under_the_precision_recall_curve_at_k, "F1 Score@k", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
+
+
+#Fall-Out@k & Mean Reciprocal Rank (MMR)
+comparison(m.fall_out_at_k, m.mean_reciprocal_rank, "Fall-Out@k", "Mean Reciprocal Rank (MMR)", k=k)
+
+#Fall-Out@k & Hit-Rate@k
+comparison(m.fall_out_at_k, m.hit_rate_at_k, "Fall-Out@k", "Hit-Rate@k", k=k)
+
+#Fall-Out@k & mean Average Precision@k (mAP)
+comparison(m.fall_out_at_k, m.mean_average_precision_at_k, "Fall-Out@k", "mean Average Precision@k (mAP)", k=k)
+
+#Fall-Out@k & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.fall_out_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Fall-Out@k", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
+
+#Fall-Out@k & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.fall_out_at_k, m.area_under_the_precision_recall_curve_at_k, "Fall-Out@k", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
 
 
 
@@ -320,13 +341,21 @@ comparison(m.mean_reciprocal_rank, m.area_under_the_precision_recall_curve_at_k,
 
 
 #Hit-Rate@k & mean Average Precision@k (mAP)
-#comparison(m.hit_rate_at_k, m.mean_average_precision_at_k, "Hit-Rate@k", "mean Average Precision@k (mAP)", k=k)
+comparison(m.hit_rate_at_k, m.mean_average_precision_at_k, "Hit-Rate@k", "mean Average Precision@k (mAP)", k=k)
 
 #Hit-Rate@k & Area Under The Curve - ROC curve@k (AUC-ROC)
-comparison(m.hit_rate_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Hit-Rate@k", "mean Average Precision@k (mAP)", k=k)
+comparison(m.hit_rate_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "Hit-Rate@k", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
 
 #Hit-Rate@k & Area Under the Precision-Recall Curve@k (PRAUC)
 comparison(m.hit_rate_at_k, m.area_under_the_precision_recall_curve_at_k, "Hit-Rate@k", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
+
+
+
+#mean Average Precision@k (mAP) & Area Under The Curve - ROC curve@k (AUC-ROC)
+comparison(m.mean_average_precision_at_k, m.area_under_the_curve_receiver_operator_characteristic_at_k, "mean Average Precision@k (mAP)", "Area Under The Curve - ROC curve@k (AUC-ROC)", k=k)
+
+#mean Average Precision@k (mAP) & Area Under the Precision-Recall Curve@k (PRAUC)
+comparison(m.mean_average_precision_at_k, m.area_under_the_precision_recall_curve_at_k, "mean Average Precision@k (mAP)", "Area Under the Precision-Recall Curve@k (PRAUC)", k=k)
 
 
 
